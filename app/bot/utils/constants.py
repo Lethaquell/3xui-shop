@@ -1,13 +1,13 @@
 # region: Download
-APP_IOS_LINK = "https://apps.apple.com/us/app/happ-proxy-utility/id6504287215"
-APP_ANDROID_LINK = "https://play.google.com/store/apps/details?id=com.happproxy"
+APP_IOS_LINK = "https://apps.apple.com/us/app/hiddify-proxy-vpn/id6596777532"
+APP_ANDROID_LINK = "https://play.google.com/store/apps/details?id=app.hiddify.com"
 APP_WINDOWS_LINK = (
-    "https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x86.exe"
+    "https://github.com/hiddify/hiddify-app/releases/download/v2.0.5/Hiddify-Windows-Setup-x64.exe"
 )
 
-APP_IOS_SCHEME = "happ://add/"
-APP_ANDROID_SCHEME = "happ://add/"
-APP_WINDOWS_SCHEME = "happ://add/"
+APP_IOS_SCHEME = "hiddify://import/"
+APP_ANDROID_SCHEME = "hiddify://import/"
+APP_WINDOWS_SCHEME = "hiddify://import/"
 
 # endregion
 
