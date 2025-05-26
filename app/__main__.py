@@ -54,6 +54,13 @@ async def on_startup(config: Config, bot: Bot, services: ServicesContainer, db: 
         tasks.referral.start_scheduler(
             session_factory=db.session, referral_service=services.referral
         )
+    
+    # Start subscription expiry notifications scheduler
+    tasks.expiry_notifications.start_scheduler(
+        session_factory=db.session,
+        vpn_service=services.vpn,
+        notification_service=services.notification
+    )
 
 
 async def main() -> None:

@@ -15,7 +15,7 @@ class ClientData:
         traffic_used: int,
         traffic_up: int,
         traffic_down: int,
-        expiry_time: str,
+        expiry_time: int,
     ) -> None:
         self._max_devices = max_devices
         self._traffic_total = traffic_total
@@ -38,7 +38,7 @@ class ClientData:
         devices = self._max_devices
         if devices == -1:
             return UNLIMITED
-        return devices
+        return str(devices)
 
     @property
     def traffic_total(self) -> str:
@@ -63,6 +63,11 @@ class ClientData:
     @property
     def expiry_time(self) -> str:
         return format_remaining_time(self._expiry_time)
+
+    @property
+    def expiry_time_ms(self) -> int:
+        """Get expiry time as milliseconds timestamp for notifications"""
+        return self._expiry_time
 
     @property
     def has_subscription_expired(self) -> bool:
