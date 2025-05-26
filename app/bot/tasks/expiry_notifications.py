@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 
 # Time intervals for notifications (in milliseconds)
 ONE_HOUR_MS = 60 * 60 * 1000  # 1 hour
+TWELVE_HOURS_MS = 12 * 60 * 60 * 1000  # 12 hours
 ONE_DAY_MS = 24 * 60 * 60 * 1000  # 24 hours
 
 
@@ -29,11 +30,11 @@ async def check_subscription_expiry(
     logger.info("[Expiry Check] Starting subscription expiry check...")
     
     current_time = time.time() * 1000  # Current time in milliseconds
-    one_hour_later = current_time + ONE_HOUR_MS
-    one_day_later = current_time + ONE_DAY_MS
     
     # Add small buffer to avoid duplicate notifications
     buffer_time = 30 * 60 * 1000  # 30 minutes buffer
+    
+    logger.debug("[Expiry Check] Current time: %d", current_time)
     
     session: AsyncSession
     async with session_factory() as session:
@@ -64,27 +65,36 @@ async def check_subscription_expiry(
                 
                 if expiry_time == -1:
                     # Unlimited subscription, skip
+                    logger.debug("[Expiry Check] User %d has unlimited subscription, skipping", user.tg_id)
                     continue
                 
-                # Check if we need to send 1 hour notification
-                if (one_hour_later - buffer_time <= expiry_time <= one_hour_later + buffer_time):
+                # Calculate time differences for debugging
+                time_until_expiry = expiry_time - current_time
+                hours_until_expiry = time_until_expiry / (60 * 60 * 1000)
+                
+                logger.debug("[Expiry Check] User %d: expiry_time=%d, current_time=%d, hours_until_expiry=%.2f", 
+                           user.tg_id, expiry_time, current_time, hours_until_expiry)
+                
+                # Send notifications based on remaining time ranges
+                # 1 hour notification: when less than 2 hours but more than 30 minutes remaining
+                if 0.5 < hours_until_expiry <= 2.0:
                     await _send_expiry_notification(
                         notification_service=notification_service,
                         user=user,
                         notification_type="1_hour"
                     )
                     notifications_sent += 1
-                    logger.info("[Expiry Check] Sent 1-hour notification to user %d", user.tg_id)
+                    logger.info("[Expiry Check] Sent 1-hour notification to user %d (%.2f hours remaining)", user.tg_id, hours_until_expiry)
                 
-                # Check if we need to send 24 hour notification
-                elif (one_day_later - buffer_time <= expiry_time <= one_day_later + buffer_time):
+                # 24 hour notification: when less than 25 hours but more than 2 hours remaining  
+                elif 2.0 < hours_until_expiry <= 25.0:
                     await _send_expiry_notification(
                         notification_service=notification_service,
                         user=user,
                         notification_type="24_hours"
                     )
                     notifications_sent += 1
-                    logger.info("[Expiry Check] Sent 24-hour notification to user %d", user.tg_id)
+                    logger.info("[Expiry Check] Sent 24-hour notification to user %d (%.2f hours remaining)", user.tg_id, hours_until_expiry)
                     
             except Exception as exception:
                 logger.error("[Expiry Check] Error checking user %d: %s", user.tg_id, exception)
@@ -110,6 +120,8 @@ async def _send_expiry_notification(
         # Use lazy gettext for localization
         if notification_type == "1_hour":
             text = __("expiry:notification:1_hour")
+        elif notification_type == "12_hours":
+            text = __("expiry:notification:12_hours")
         elif notification_type == "24_hours":
             text = __("expiry:notification:24_hours")
         else:
