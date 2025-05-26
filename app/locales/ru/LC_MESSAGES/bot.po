@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bot 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-04-01 00:01+0500\n"
+"POT-Creation-Date: 2025-05-27 00:09+0300\n"
 "PO-Revision-Date: 2024-12-05 10:24+0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -1039,6 +1039,14 @@ msgstr ""
 "✅ <b>Оплата прошла успешно!</b>\n"
 "\n"
 "Ваша подписка была обновлена ​​на {device} и {duration}."
+
+#: app/bot/tasks/expiry_notifications.py:112
+msgid "expiry:notification:1_hour"
+msgstr "⏰ Ваша VPN подписка истекает через 1 час! Не забудьте продлить её, чтобы избежать прерывания сервиса."
+
+#: app/bot/tasks/expiry_notifications.py:114
+msgid "expiry:notification:24_hours"
+msgstr "🕐 Ваша VPN подписка истекает через 24 часа. Рассмотрите возможность продления, чтобы продолжить пользоваться нашим сервисом без перерывов."
 
 #: app/bot/utils/formatting.py:18 app/bot/utils/formatting.py:20
 #: app/bot/utils/formatting.py:28
