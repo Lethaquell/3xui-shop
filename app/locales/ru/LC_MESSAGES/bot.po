@@ -1176,7 +1176,13 @@ msgstr ""
 "\n"
 "Ваша подписка была обновлена ​​на {device} и {duration}."
 
-#: app/bot/tasks/expiry_notifications.py:112
+#: app/bot/tasks/expiry_notifications.py:181
+msgid "expiry:notification:precise"
+msgstr ""
+"⏰ Ваша VPN подписка истекает через {hours}ч {minutes}м! "
+"Не забудьте продлить её, чтобы избежать прерывания сервиса."
+
+#: app/bot/tasks/expiry_notifications.py:191
 msgid "expiry:notification:1_hour"
 msgstr ""
 "⏰ Ваша VPN подписка истекает через 1 час! Не забудьте продлить её, чтобы "
