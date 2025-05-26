@@ -177,12 +177,13 @@ async def _send_expiry_notification(
         hours_int = int(hours_remaining)
         minutes_int = int((hours_remaining - hours_int) * 60)
 
-        # Use localized message with hours and minutes parameters
-        text = __("expiry:notification:precise", hours=hours_int, minutes=minutes_int)
+        # Get localized message template and format it
+        text_template = __("expiry:notification:precise")
+        text = str(text_template).format(hours=hours_int, minutes=minutes_int)
 
         await notification_service.notify_by_id(
             chat_id=user.tg_id,
-            text=str(text)
+            text=text
         )
 
     except Exception as exception:
