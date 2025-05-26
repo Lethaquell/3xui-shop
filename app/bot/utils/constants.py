@@ -1,11 +1,11 @@
 # region: Download
-APP_IOS_LINK = "https://apps.apple.com/us/app/hiddify-proxy-vpn/id6596777532"
+APP_IOS_LINK = "https://apps.apple.com/ru/app/v2raytun/id6476628951"
 APP_ANDROID_LINK = "https://play.google.com/store/apps/details?id=app.hiddify.com"
 APP_WINDOWS_LINK = (
     "https://github.com/hiddify/hiddify-app/releases/download/v2.0.5/Hiddify-Windows-Setup-x64.exe"
 )
 
-APP_IOS_SCHEME = "hiddify://import/"
+APP_IOS_SCHEME = "v2raytun://import/"
 APP_ANDROID_SCHEME = "hiddify://import/"
 APP_WINDOWS_SCHEME = "hiddify://import/"
 
